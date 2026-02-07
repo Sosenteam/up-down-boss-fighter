@@ -13,6 +13,7 @@ height = 16.0
 
 [node name="Player" type="CharacterBody2D" unique_id=2045048825]
 script = ExtResource("1_rkbax")
+speed = null
 
 [node name="Sword" type="CharacterBody2D" parent="." unique_id=2130217777]
 position = Vector2(1, 1)
@@ -35,13 +36,3 @@ texture = ExtResource("1_oul6g")
 
 [node name="CollsionBox" type="CollisionShape2D" parent="." unique_id=171637791]
 shape = SubResource("CapsuleShape2D_rkbax")
-
-[node name="DashTimer" type="Timer" parent="." unique_id=398269789]
-wait_time = 0.4
-one_shot = true
-
-[node name="DashCooldown" type="Timer" parent="DashTimer" unique_id=1041901396]
-one_shot = true
-
-[connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]
-[connection signal="timeout" from="DashTimer/DashCooldown" to="." method="_on_dash_cooldown_timeout"]
