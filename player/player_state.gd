@@ -1,8 +1,15 @@
 class_name PlayerState extends State
 
+# Movement States
 const IDLE = "Idle"
 const MOVING = "Moving"
 const DASHING = "Dashing"
+
+# Combat States
+const IDLE_ATTACK = "IdleAttack"
+const LIGHT_ATTACK = "LightAttack"
+const HEAVY_ATTACK = "HeavyAttack"
+
 
 var player: Player
 

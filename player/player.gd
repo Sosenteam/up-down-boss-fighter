@@ -16,9 +16,11 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if(Input.get_vector("move-left", "move-right", "move-up", "move-down").x <0):
-		$Sprite2D.flip_h = true
+		$PlayerSprite.flip_h = true
+		$Weapon.scale.x = -1
 	elif(Input.get_vector("move-left", "move-right", "move-up", "move-down").x > 0):
-		$Sprite2D.flip_h = false
+		$PlayerSprite.flip_h = false
+		$Weapon.scale.x = 1
 
 func _on_dash_timer_timeout() -> void:
 	dash_active=false
