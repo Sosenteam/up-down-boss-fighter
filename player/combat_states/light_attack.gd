@@ -1,9 +1,12 @@
 extends PlayerState
 var swordAnimPlayer: AnimationPlayer
-
+var weapon: Node2D
 func enter(previous_state_path: String, data := {}) -> void:
 	swordAnimPlayer = player.get_node("Weapon/Sword/SwordAnimPlayer")
+	weapon = player.get_node("Weapon")
+	weapon.visible = true
 	swordAnimPlayer.play("light_attack")
+	weapon.rotation = player.position.angle_to_point(player.mouse_position)
 func update(_delta: float) -> void:
 	if(!swordAnimPlayer.is_playing()):
 		finished.emit(IDLE_ATTACK)

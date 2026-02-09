@@ -8,6 +8,7 @@ class_name Player extends CharacterBody2D
 var dash_ready = true
 var dash_active = false
 var pre_velocity = Vector2.ZERO
+var mouse_position: Vector2
 
 func _ready() -> void:
 	$DashTimer.wait_time = dash_length
@@ -17,10 +18,12 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if(Input.get_vector("move-left", "move-right", "move-up", "move-down").x <0):
 		$PlayerSprite.flip_h = true
-		$Weapon.scale.x = -1
 	elif(Input.get_vector("move-left", "move-right", "move-up", "move-down").x > 0):
 		$PlayerSprite.flip_h = false
-		$Weapon.scale.x = 1
+
+func _input(event: InputEvent) -> void:
+	if(event is InputEventMouseMotion):
+		mouse_position = event.position
 
 func _on_dash_timer_timeout() -> void:
 	dash_active=false

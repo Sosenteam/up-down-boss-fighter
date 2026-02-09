@@ -1,9 +1,12 @@
 extends PlayerState
 var swordAnimPlayer: AnimationPlayer
+var weapon: Node2D
 
 func enter(previous_state_path: String, data := {}) -> void:
 	swordAnimPlayer = player.get_node("Weapon/Sword/SwordAnimPlayer")
 	swordAnimPlayer.play("idle")
+	weapon = player.get_node("Weapon")
+	weapon.visible = false
 func physics_update(_delta: float) -> void:
 	pass
 func handle_input(_event: InputEvent) -> void:
