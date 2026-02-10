@@ -4,7 +4,9 @@ class_name Player extends CharacterBody2D
 @export var dash_mult = 3
 @export var dash_length = 0.25
 @export var dash_cooldown = 1
+@export var max_stamina = 100
 
+var stamina = max_stamina
 var dash_ready = true
 var dash_active = false
 var pre_velocity = Vector2.ZERO
