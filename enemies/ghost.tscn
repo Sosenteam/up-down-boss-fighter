@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://dttoyytbfchwo"]
+
+[ext_resource type="Script" uid="uid://bgvedx1ojko70" path="res://enemies/ghost.gd" id="1_jyll1"]
+[ext_resource type="Texture2D" uid="uid://bf4o7k6k2wj65" path="res://assets/Tiles/tile_0121.png" id="1_uk6m1"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_uk6m1"]
+radius = 5.0
+height = 16.0
+
+[node name="Ghost" type="CharacterBody2D" unique_id=676577465]
+script = ExtResource("1_jyll1")
+speed = 25
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1351410327]
+texture_filter = 1
+texture = ExtResource("1_uk6m1")
+
+[node name="CollisionBox" type="CollisionShape2D" parent="." unique_id=1796740709]
+shape = SubResource("CapsuleShape2D_uk6m1")
+
+[node name="NavigationAgent" type="NavigationAgent2D" parent="." unique_id=1135701410]
