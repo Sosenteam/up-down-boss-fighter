@@ -1,6 +1,9 @@
 extends CharacterBody2D
 
 @export var speed = 400
+@export var health = 20
+
+
 var movement_Target: Vector2 = Vector2(20,20)
 func _ready() -> void:
 	actor_setup.call_deferred()
@@ -21,3 +24,26 @@ func _physics_process(delta: float) -> void:
 
 	velocity = current_agent_position.direction_to(next_path_position) * speed
 	move_and_slide()
+	#Collision
+
+func _process(delta: float) -> void:
+	manage_collision()
+
+func manage_collision():
+	if $Hitbox.has_overlapping_bodies():
+		var overlapping_bodies = $Hitbox.get_overlapping_bodies()
+		for body in overlapping_bodies:
+			if(body.has_method("take_damage")):
+				var attack = Attack.new()
+				attack.attack_damage = 5
+				attack.attack_position = position
+				body.take_damage(attack)
+
+
+func take_damage(attack: Attack):
+	if(!$InvicibilityTimer.is_stopped()):
+		return
+	health-=attack.attack_damage
+	$InvicibilityTimer.start()
+	if(health >= 0):
+		queue_free()

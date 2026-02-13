@@ -7,7 +7,13 @@
 radius = 5.0
 height = 16.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jyll1"]
+radius = 4.0
+height = 14.0
+
 [node name="Ghost" type="CharacterBody2D" unique_id=676577465]
+collision_layer = 8
+collision_mask = 0
 script = ExtResource("1_jyll1")
 speed = 25
 
@@ -19,3 +25,17 @@ texture = ExtResource("1_uk6m1")
 shape = SubResource("CapsuleShape2D_uk6m1")
 
 [node name="NavigationAgent" type="NavigationAgent2D" parent="." unique_id=1135701410]
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=754519904]
+collision_layer = 8
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=193488327]
+shape = SubResource("CapsuleShape2D_jyll1")
+debug_color = Color(0.73538643, 0.47021788, 0, 0.41960785)
+
+[node name="InvicibilityTimer" type="Timer" parent="." unique_id=114958930]
+wait_time = 0.25
+one_shot = true
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]

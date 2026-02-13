@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://ctgsu1gkjuohq" path="res://assets/Tiles/tile_0096.png" id="1_oul6g"]
 [ext_resource type="Script" uid="uid://c73d6ceupiipy" path="res://player/player.gd" id="1_rkbax"]
+[ext_resource type="Script" uid="uid://bc1r3os3dnasn" path="res://player/sword.gd" id="2_ebec5"]
 [ext_resource type="Texture2D" uid="uid://dhpu2add0kpgj" path="res://assets/Tiles/tile_0104.png" id="3_g1dw6"]
 [ext_resource type="Script" uid="uid://bveu1rro44muo" path="res://player/movement_states/movement_state_machine.gd" id="4_yw30f"]
 [ext_resource type="Script" uid="uid://ck88xlxrcevl8" path="res://player/movement_states/idle.gd" id="5_qjkh3"]
@@ -11,9 +12,6 @@
 [ext_resource type="Script" uid="uid://bp7mtj4sfb268" path="res://player/combat_states/idle_attack.gd" id="9_2ieo8"]
 [ext_resource type="Script" uid="uid://dec75ypti0nqb" path="res://player/combat_states/light_attack.gd" id="9_hg6s5"]
 [ext_resource type="Script" uid="uid://dr4kltgsspd8d" path="res://player/combat_states/heavy_attack.gd" id="10_8t03j"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_g1dw6"]
-size = Vector2(2, 10)
 
 [sub_resource type="Animation" id="Animation_2ieo8"]
 length = 0.001
@@ -135,11 +133,15 @@ _data = {
 &"light_attack": SubResource("Animation_ebec5")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g1dw6"]
+size = Vector2(2, 10)
+
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rkbax"]
 radius = 6.0
 height = 14.0
 
 [node name="Player" type="CharacterBody2D" unique_id=2045048825]
+collision_layer = 3
 script = ExtResource("1_rkbax")
 
 [node name="Weapon" type="Node2D" parent="." unique_id=2137190275]
@@ -149,19 +151,29 @@ metadata/_edit_lock_ = true
 position = Vector2(1, 1)
 rotation = -2.067773
 scale = Vector2(0.99999994, 0.99999994)
+script = ExtResource("2_ebec5")
 metadata/_edit_group_ = true
 
 [node name="SwordSprite" type="Sprite2D" parent="Weapon/Sword" unique_id=1726105003]
 texture_filter = 1
 texture = ExtResource("3_g1dw6")
 
-[node name="HitBox" type="CollisionShape2D" parent="Weapon/Sword" unique_id=338370785]
+[node name="SwordAnimPlayer" type="AnimationPlayer" parent="Weapon/Sword" unique_id=868517455]
+libraries/ = SubResource("AnimationLibrary_2ieo8")
+
+[node name="HitBox" type="Area2D" parent="Weapon/Sword" unique_id=787981719]
+collision_layer = 4
+collision_mask = 8
+
+[node name="HitBoxShape" type="CollisionShape2D" parent="Weapon/Sword/HitBox" unique_id=338370785]
 position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_g1dw6")
 disabled = true
 
-[node name="SwordAnimPlayer" type="AnimationPlayer" parent="Weapon/Sword" unique_id=868517455]
-libraries/ = SubResource("AnimationLibrary_2ieo8")
+[node name="SwordCollisionBox" type="CollisionShape2D" parent="Weapon/Sword" unique_id=1154904906]
+position = Vector2(0, -2)
+shape = SubResource("RectangleShape2D_g1dw6")
+disabled = true
 
 [node name="PlayerSprite" type="Sprite2D" parent="." unique_id=299222966]
 texture_filter = 1
@@ -175,6 +187,10 @@ wait_time = 0.4
 one_shot = true
 
 [node name="DashCooldown" type="Timer" parent="DashTimer" unique_id=1041901396]
+one_shot = true
+
+[node name="InvicibilityTimer" type="Timer" parent="." unique_id=1073807257]
+wait_time = 0.2
 one_shot = true
 
 [node name="CombatStateMachine" type="Node" parent="." unique_id=261713598]

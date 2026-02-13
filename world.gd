@@ -11,4 +11,5 @@ func _process(delta: float) -> void:
 	pass
 
 func _physics_process(delta: float) -> void:
-	$Ghost.set_movement_target($Player.position)
+	if($Ghost):
+		$Ghost.set_movement_target($Player.position)
